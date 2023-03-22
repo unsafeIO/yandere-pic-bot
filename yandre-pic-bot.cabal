@@ -1,0 +1,42 @@
+cabal-version:   3.0
+name:            yandre-pic-bot
+version:         0.1.0.0
+license:         WTFPL
+license-file:    LICENSE
+author:          Indian Summer
+copyright:       Indian Summer
+category:        Web
+build-type:      Simple
+extra-doc-files:
+  CHANGELOG.md
+  README.md
+
+executable yandre-pic-bot
+  ghc-options:
+    -threaded -rtsopts -with-rtsopts=-N -Wall -Wno-name-shadowing
+
+  main-is:          Main.hs
+  other-modules:
+    BotDb
+    SendPic
+    Types
+    Yandere
+
+  build-depends:
+    , aeson
+    , base              >=4.7 && <5
+    , beam-core
+    , beam-sqlite
+    , bytestring
+    , http-client
+    , http-client-tls
+    , mtl
+    , servant
+    , servant-client
+    , sqlite-simple
+    , stm
+    , telegram-bot-api
+    , text
+
+  hs-source-dirs:   app
+  default-language: Haskell2010
