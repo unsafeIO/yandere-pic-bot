@@ -3,11 +3,9 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE ImpredicativeTypes #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE NoMonomorphismRestriction #-}
 
 module Types where
 
@@ -19,10 +17,10 @@ import Data.Text (Text)
 import Database.Beam
 import Database.Beam.Sqlite
 import Database.SQLite.Simple
+import Network.HTTP.Client (Manager)
 import Network.HTTP.Client.TLS (newTlsManager)
 import Servant.Client
 import Telegram.Bot.API (Token, botBaseUrl)
-import Network.HTTP.Client (Manager)
 
 data YanderePostT f = YanderePost
   { _postId :: C f Int32,
