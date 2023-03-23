@@ -88,6 +88,7 @@ data Env = Env
     envChatUsername :: Text,
     envManager :: Manager
   }
+  deriving stock (Generic)
 
 newtype EnvM a = EnvM
   { unEnvM :: ReaderT Env IO a

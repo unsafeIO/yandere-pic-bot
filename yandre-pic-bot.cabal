@@ -18,6 +18,7 @@ executable yandre-pic-bot
   main-is:          Main.hs
   other-modules:
     BotDb
+    Logger
     SendPic
     Types
     Yandere
@@ -28,6 +29,8 @@ executable yandre-pic-bot
     , beam-core
     , beam-sqlite
     , bytestring
+    , cron
+    , hslogger
     , http-client
     , http-client-tls
     , mtl

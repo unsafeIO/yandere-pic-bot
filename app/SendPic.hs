@@ -11,7 +11,7 @@ import qualified Data.ByteString as BS
 import Data.Coerce (coerce)
 import Data.Text (Text)
 import qualified Data.Text as T
-import qualified Data.Text.IO as T
+import Logger
 import Network.HTTP.Client
 import Telegram.Bot.API
 import Types
@@ -46,7 +46,7 @@ sendPic post = do
             sendPhotoAllowSendingWithoutReply = Nothing,
             sendPhotoReplyMarkup = Nothing
           }
-  liftIO $ T.putStrLn $ "Sending " <> postUrl
+  logInfo $ "Sending " <> postUrl
   result <- liftTg $ sendPhoto req
   if responseOk result
     then do
@@ -57,9 +57,9 @@ sendPic post = do
                 _messageChatId = fromInteger . coerce . chatId $ messageChat,
                 _messagePost = PostId $ _postId post
               }
-      liftIO $ T.putStrLn $ "Sent " <> postUrl
+      logInfo $ "Sent " <> postUrl
       liftSqlite $ insertMessage tgMsg
-      liftIO $ T.putStrLn $ "Saved " <> postUrl
+      logInfo $ "Saved " <> postUrl
     else fail $ show result
 
 escapeTg :: Text -> Text
