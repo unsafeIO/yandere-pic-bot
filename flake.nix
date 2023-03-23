@@ -19,8 +19,12 @@
             yandere-pic-bot = hpkgs.callCabal2nix "yandere-pic-bot" ./. { };
           in with prev;
           with haskell.lib; {
-            yandere-pic-bot-dev =
-              addBuildTools yandere-pic-bot [ haskell-language-server cabal-install sqlite ];
+            yandere-pic-bot = justStaticExecutables yandere-pic-bot;
+            yandere-pic-bot-dev = addBuildTools yandere-pic-bot [
+              haskell-language-server
+              cabal-install
+              sqlite
+            ];
           };
       };
 }
