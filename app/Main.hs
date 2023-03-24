@@ -4,7 +4,7 @@ module Main where
 
 import BotDb
 import Control.Applicative ((<|>))
-import Control.Concurrent (threadDelay, yield)
+import Control.Concurrent (threadDelay)
 import Control.Exception (bracket)
 import Control.Monad (forM_, forever)
 import Control.Monad.IO.Class (liftIO)
@@ -27,9 +27,9 @@ main = do
   lastId <- fmap read <$> lookupEnv "LAST_ID"
   tag <- T.pack <$> getEnv "TAG"
   setUpLogger
-  bracket (newEnv db (Token token) chat) snd $ \(env, _) -> do
+  bracket (newEnv db (Token token) chat) (\(_, c) -> logInfo "Closing DB..." >> c) $ \(env, _) -> do
     _ <- execSchedule $ addJob (run env tag lastId) "0 * * * *"
-    forever yield
+    forever $ threadDelay maxBound
 
 run :: Env -> Text -> Maybe Int32 -> IO ()
 run env tag lastId = runEnv env $ do
