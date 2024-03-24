@@ -43,7 +43,7 @@ sendPic post = do
             sendPhotoDisableNotification = Nothing,
             sendPhotoProtectContent = Nothing,
             sendPhotoReplyToMessageId = Nothing,
-            sendPhotoAllowSendingWithoutReply = Nothing,
+            sendPhotoReplyParameters = Nothing,
             sendPhotoReplyMarkup = Nothing
           }
   logInfo $ "Sending " <> postUrl
