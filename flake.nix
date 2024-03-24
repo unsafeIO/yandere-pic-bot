@@ -7,6 +7,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
+          config.allowBroken = true;
           overlays = [ self.overlays.default ];
         };
       in with pkgs; {
@@ -15,7 +16,11 @@
       }) // {
         overlays.default = final: prev:
           let
-            hpkgs = prev.haskellPackages;
+            hpkgs = prev.haskellPackages.override {
+              overrides = hself: hsuper: {
+                beam-migrate = prev.haskell.lib.doJailbreak hsuper.beam-migrate;
+              };
+            };
             yandere-pic-bot = hpkgs.callCabal2nix "yandere-pic-bot" ./. { };
           in with prev;
           with haskell.lib; {
